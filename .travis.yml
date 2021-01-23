@@ -7,7 +7,7 @@ services: # 사용할 서비스들
 
 before_install: # travis ci 가 스크립트 수행전 실행할 내용들
   - echo "start creating an image with dockerfile"
-  - docker build -t makga87/docker-react-app -f Dockerfile.dev .
+  - docker build -t makga87/docker-react-app -f Dockerfile.dev ./
 
 script: # travis ci 에서 수행할 스크립트
   - docker run -e CI=true makga87/docker-react-app npm run test -- -- coverage # coverage는 더 수행 내용이 잘 보이게 함
