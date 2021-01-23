@@ -1,0 +1,20 @@
+version: "3"
+services: 
+  react:
+    build:
+      context: . # 도커 이미지를 구성하기 위한 파일과 폴더들이 있는 위치.
+      dockerfile: Dockerfile.dev
+    ports:
+     - "3000:3000"
+    volumes: 
+     - /usr/src/app/node_modules # 참조 제외 폴더
+     - ./:/usr/src/app # 참조할 폴더
+    stdin_open: true # 리액트 앱에 한정된 설정, 해당 값이 없으면 리액트 종료 시 버그가 발생 (버전업된다음 부터 발생한 이슈)
+  tests:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes: 
+     - /usr/src/app/node_modules
+     - ./:/usr/src/app
+    command: ["npm", "run", "test"]
