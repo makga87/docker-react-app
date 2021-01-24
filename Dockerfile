@@ -11,7 +11,7 @@ COPY ./ ./
 RUN npm run build
 
 FROM nginx
-
+EXPOSE 80
 COPY --from=builder /usr/src/app/build /usr/share/nginx/html
 
 # --from-builder : 다른 Stage에 있는 파일을 복사할 때 다른 Stage 이름을 명시
