@@ -14,3 +14,15 @@ script: # travis ci 에서 수행할 스크립트
 
 after_success:
   - echo "Test success"
+
+deploy:
+  provider: elasticbeanstalk # 외부 서비스에대한 표시 (s3, eb, firebase 등등)
+  region: ap-northeast-2 # 현재 사용하고 있는 AWS의 서비스가 위치하고 있는 물리적 장소 (AWS에 도메인 부분을 봐야함)
+  app: docker-react-app # 생성된 어플리케이션의 이름
+  env: DockerReactApp-env # 환경의 이름
+  bucket_name: elasticbeanstalk-ap-northeast-2-987651507548 # 해당 elastic beanstalk를 위한 s3 버켓 이름, travis ci 에서 바로 eb가는 것이 아니라, travis ci가 가지고 있는 파일을 압축해서 s3에 저장한다. 이는 eb를 생성하면 s3도 같이 생성된다.
+  bucket_path: docker-react-app # 어플리케이션 이름과 동일
+  on:
+    branch: master # 어떤 브랜치에 push를 할 때 AWS에 배포할 것인지.
+access_key_id: $AWS_ACCESS_KEY
+secret_access_key: $AWS_SECRET_ACCESS_KEY
